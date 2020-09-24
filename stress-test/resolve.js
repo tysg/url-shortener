@@ -5,7 +5,7 @@ export let options = {
     scenarios: {
         resolve: {
             executor: 'constant-vus',
-            vus: 500,
+            vus: 200,
             duration: '1m',
             exec: 'resolve'
         }
