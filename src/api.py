@@ -1,9 +1,12 @@
+from gevent import monkey
+monkey.patch_all()
+
 import logging
 import traceback
 
 from flask import Flask
 
-from accessors.urls_tab import MysqlUrlsTabAccessor
+from accessors.urls_tab import CachedMysqlUrlsTabAccessor
 from common.exceptions import ShortUrlException
 from conf import Conf
 
@@ -20,7 +23,7 @@ def init_configs(_app):
 
 
 def create_urls_view():
-    urls_tab_accessor = MysqlUrlsTabAccessor()
+    urls_tab_accessor = CachedMysqlUrlsTabAccessor()
     
     # TODO: Change short key generator here (and short URL manager if your
     # choice of short key generator may produce duplicates)

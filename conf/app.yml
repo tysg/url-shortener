@@ -4,6 +4,8 @@ flask:
 database:
   name_or_url: mysql://client:password@mysql/short_url_db
   echo: False
+  pool_size: 100
+  max_overflow: 5
   isolation_level: REPEATABLE READ
 
 redis:

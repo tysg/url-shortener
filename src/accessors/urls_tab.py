@@ -10,7 +10,11 @@ from utils.cache import RedisCache
 from utils.time import current_timestamp
 
 
-class MysqlUrlsTabAccessor(UrlsTabAccessor):
+class CachedMysqlUrlsTabAccessor(UrlsTabAccessor):
+    _NULL = 'null'
+
+    def __init__(self):
+        self._short_key_mapping_cache = RedisCache(space='short_key')
 
     def create(self, short_key: str, url: str) -> int:
         """
@@ -24,9 +28,15 @@ class MysqlUrlsTabAccessor(UrlsTabAccessor):
         )
         with session_ctx() as session:
             session.add(record)
+        self._short_key_mapping_cache.set(short_key, url)
         return record.id
 
     def find_last_by_short_key(self, short_key: str) -> Optional[str]:
+        url = self._get_from_cache(short_key)
+
+        if url is not None:
+            return url
+
         with session_ctx() as session:
             record = (
                 session.query(UrlsTab)
@@ -36,6 +46,14 @@ class MysqlUrlsTabAccessor(UrlsTabAccessor):
             )
             url = record.url if record else None
 
+        self._short_key_mapping_cache.set(short_key, url or self._NULL, nx=True)
+
+        return url
+
+    def _get_from_cache(self, short_key) -> Optional[str]:
+        url = self._short_key_mapping_cache.get(short_key)
+        if url == self._NULL:
+            return None
         return url
 
     def find_match_by_url(self, url: str) -> Optional[Tuple[str, str]]:

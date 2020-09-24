@@ -6,11 +6,10 @@ from contextlib import contextmanager
 from sqlalchemy import create_engine, event
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import NullPool
 
 from conf import Conf
 
-engine = create_engine(**Conf['database'], poolclass=NullPool)
+engine = create_engine(**Conf['database'])
 Session = sessionmaker(bind=engine)
 sqlLogger = logging.getLogger('sql')
 

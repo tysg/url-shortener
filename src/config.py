@@ -1,5 +1,6 @@
 backlog = 2048
-worker_class = 'sync'
+worker_class = 'gevent'
+worker_connections = 500
 max_requests = 100000
 max_requests_jitter = 3000
 timeout = 1200
