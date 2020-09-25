@@ -12,6 +12,8 @@ use Mix.Config
 config :elx, ElxWeb.Endpoint, url: [host: "localhost", port: 8080]
 # cache_static_manifest: "priv/static/cache_manifest.json"
 
+config :elx, :redis_host, "redis"
+
 # Do not print debug messages in production
 config :logger, level: :info
 

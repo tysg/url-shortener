@@ -28,7 +28,7 @@ if (!random_portion) {
 if (!service_url) {
     service_url = 'http://localhost:8080/'
 }
-var shorten_url = service_url + '/urls';
+var shorten_url = service_url + 'urls';
 var shopee_url = 'https://shopee.sg';
 
 const random_short_url = (ts, vu, iter) => `${service_url}${ts}+${vu}+${iter}"}`;

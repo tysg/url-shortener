@@ -6,6 +6,7 @@ defmodule Elx.Application do
   use Application
 
   def start(_type, _args) do
+    redis_host = Application.fetch_env!(:elx, :redis_host)
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
@@ -15,8 +16,8 @@ defmodule Elx.Application do
       # Starts a worker by calling: Elx.Worker.start_link(arg)
       # {Elx.Worker, arg},
       # Elx.Counter,
-      Elx.Bucket,
-      {Redix, host: "redis", name: :redix}
+      # Elx.Bucket,
+      {Redix, host: redis_host, name: :redix}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

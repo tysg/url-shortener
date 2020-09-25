@@ -22,6 +22,9 @@ config :elx, ElxWeb.Endpoint,
   check_origin: false,
   watchers: []
 
+
+config :elx, :redis_host, "localhost"
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed
