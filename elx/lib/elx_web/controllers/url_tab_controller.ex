@@ -6,12 +6,25 @@ defmodule ElxWeb.UrlTabController do
 
   action_fallback(ElxWeb.FallbackController)
 
-  def create(conn, %{"url_tab" => url_tab_params}) do
-    with {:ok, %UrlTab{} = url_tab} <- UrlApp.create_url_tab(url_tab_params) do
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", Routes.url_tab_path(conn, :show, url_tab))
-      |> render("show.json", url_tab: url_tab)
+  defp validate_uri(str) do
+    uri = URI.parse(str)
+
+    case uri do
+      %URI{scheme: nil} -> {:error, uri}
+      %URI{host: nil} -> {:error, uri}
+      %URI{path: nil} -> {:error, uri}
+      uri -> {:ok, str}
+    end
+  end
+
+  def create(conn, %{"url" => input_url}) do
+    with {:ok, url} <- validate_uri(input_url) do
+      with {:ok, %UrlTab{} = url_tab} <- UrlApp.create_url_tab(url) do
+        conn
+        |> put_status(:ok)
+        |> put_resp_header("location", Routes.url_tab_path(conn, :show, url_tab))
+        |> render("show.json", %{short_url: url_tab.short_key, host: conn.host})
+      end
     end
   end
 

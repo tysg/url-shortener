@@ -6,7 +6,8 @@ defmodule ElxWeb.FallbackController do
   """
   use ElxWeb, :controller
 
-  def call(conn, {:error, :not_found}) do
+  def call(conn, {:error, _}) do
+    # def call(conn, {:error, :not_found}) do
     conn
     |> put_status(:not_found)
     |> put_view(ElxWeb.ErrorView)

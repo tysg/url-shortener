@@ -11,9 +11,11 @@ defmodule Elx.Application do
       # Start the Ecto repository
       Elx.Repo,
       # Start the endpoint when the application starts
-      ElxWeb.Endpoint
+      ElxWeb.Endpoint,
       # Starts a worker by calling: Elx.Worker.start_link(arg)
       # {Elx.Worker, arg},
+      {Elx.Counter, nil},
+      {Elx.Bucket, nil}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
