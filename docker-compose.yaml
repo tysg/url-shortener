@@ -17,14 +17,14 @@ services:
     mem_limit: 1G
     mem_reservation: 215m
 
-  # redis:
-  #   build:
-  #     context: ./dockerfiles/redis
-  #   ports:
-  #     - 6379:6379
-  #   cpus: 1.0
-  #   mem_limit: 1G
-  #   mem_reservation: 215m
+  redis:
+    build:
+      context: ./dockerfiles/redis
+    ports:
+      - 6379:6379
+    cpus: 1.0
+    mem_limit: 1G
+    mem_reservation: 215m
 
   nginx:
     build:
@@ -39,12 +39,16 @@ services:
     #   - SYS_PTRACE
     build:
       context: ./elx
+      args:
+        DATABASE_URL: ecto://client:password@mysql/short_url_db
     volumes:
       - ./elx:/home/shorturl/src
+    ports:
+      - 4000:4000
     environment:
-      # DATABASE_URL: mysql://client:password@mysql/short_url_db
       DATABASE_URL: ecto://client:password@mysql/short_url_db
       SECRET_KEY_BASE: 7cCltY66vz9EPBaT77n8RdwJYbSKZcwaDSu3uUpSOteOuftjrUAlOOsAC0uxIubn
+      PORT: 4000
       # MIX_ENV: prod mix compile
 
     cpus: 1.0

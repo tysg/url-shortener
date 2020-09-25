@@ -14,14 +14,17 @@ defmodule Elx.Application do
       ElxWeb.Endpoint,
       # Starts a worker by calling: Elx.Worker.start_link(arg)
       # {Elx.Worker, arg},
-      {Elx.Counter, nil},
-      {Elx.Bucket, nil}
+      # Elx.Counter,
+      Elx.Bucket,
+      {Redix, host: "redis", name: :redix}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Elx.Supervisor]
-    Supervisor.start_link(children, opts)
+    start = Supervisor.start_link(children, opts)
+    Elx.Counter.init()
+    start
   end
 
   # Tell Phoenix to update the endpoint configuration

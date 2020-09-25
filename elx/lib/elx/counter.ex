@@ -2,17 +2,19 @@ defmodule Elx.Counter do
   use Agent
   alias Elx.Util
 
-  def start_link(_opts) do
-    initial_value = 1_599_647_941
-    Agent.start_link(fn -> initial_value end, name: __MODULE__)
+  @counter_key "shortkey:gen:autoinc"
+  @initial_value 1_599_647_941
+
+  def init do
+    Redix.command!(:redix, ["SETNX", @counter_key, @initial_value])
   end
 
   def value do
-    Agent.get(__MODULE__, & &1)
+    Redix.command!(:redix, ["GET", @counter_key])
   end
 
   def generate do
-    uid = Agent.get_and_update(__MODULE__, fn i -> {i, i + 1} end)
+    uid = Redix.command!(:redix, ["INCR", @counter_key])
     Util.base62_encode(uid)
   end
 end

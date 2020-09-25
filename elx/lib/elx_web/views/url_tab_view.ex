@@ -7,7 +7,7 @@ defmodule ElxWeb.UrlTabView do
   end
 
   def render("show.json", %{url: url}) do
-    %{url: url.url}
+    %{url: url}
   end
 
   def render("show.json", %{short_url: short_key, host: host}) do

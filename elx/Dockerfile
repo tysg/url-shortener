@@ -7,10 +7,10 @@ COPY mix.exs .
 COPY mix.lock .
 
 RUN mix deps.get --only prod
-# RUN mix deps.compile
 RUN MIX_ENV=prod mix compile
 
 CMD MIX_ENV=prod mix phx.server
+
 
 # FROM ubuntu:focal
 
