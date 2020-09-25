@@ -1,14 +1,16 @@
 FROM bitwalker/alpine-elixir-phoenix:latest
+# ENV MIX_ENV prod
 
+WORKDIR /home/shorturl/src
 
-COPY ./../../elx/mix.exs .
-COPY ./../../elx/mix.lock .
+COPY mix.exs .
+COPY mix.lock .
 
-WORKDIR /home/shorturl/elx
+RUN mix deps.get --only prod
+# RUN mix deps.compile
+RUN MIX_ENV=prod mix compile
 
-RUN mix do deps.get, deps.compile
-
-CMD mix phx.server
+CMD MIX_ENV=prod mix phx.server
 
 # FROM ubuntu:focal
 

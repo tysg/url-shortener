@@ -23,7 +23,8 @@ defmodule ElxWeb.UrlTabController do
         conn
         |> put_status(:ok)
         |> put_resp_header("location", Routes.url_tab_path(conn, :show, url_tab))
-        |> render("show.json", %{short_url: url_tab.short_key, host: conn.host})
+        # HACK: hard coding value
+        |> render("show.json", %{short_url: url_tab.short_key, host: "http://localhost:8080"})
       end
     end
   end

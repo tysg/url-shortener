@@ -17,14 +17,14 @@ services:
     mem_limit: 1G
     mem_reservation: 215m
 
-  redis:
-    build:
-      context: ./dockerfiles/redis
-    ports:
-      - 6379:6379
-    cpus: 1.0
-    mem_limit: 1G
-    mem_reservation: 215m
+  # redis:
+  #   build:
+  #     context: ./dockerfiles/redis
+  #   ports:
+  #     - 6379:6379
+  #   cpus: 1.0
+  #   mem_limit: 1G
+  #   mem_reservation: 215m
 
   nginx:
     build:
@@ -35,17 +35,23 @@ services:
       - ./logs:/var/log/nginx
 
   short-url:
-    cap_add:
-      - SYS_PTRACE
+    # cap_add:
+    #   - SYS_PTRACE
     build:
-      context: ./dockerfiles/short-url
+      context: ./elx
     volumes:
-      - ./src:/home/shorturl/src
-      - ./conf:/home/shorturl/conf
-      - ./logs:/home/shorturl/logs
+      - ./elx:/home/shorturl/src
+    environment:
+      # DATABASE_URL: mysql://client:password@mysql/short_url_db
+      DATABASE_URL: ecto://client:password@mysql/short_url_db
+      SECRET_KEY_BASE: 7cCltY66vz9EPBaT77n8RdwJYbSKZcwaDSu3uUpSOteOuftjrUAlOOsAC0uxIubn
+      # MIX_ENV: prod mix compile
+
     cpus: 1.0
     mem_limit: 1G
     mem_reservation: 215m
+    depends_on:
+      - mysql
 
   acceptance-test:
     build:
@@ -60,7 +66,5 @@ services:
     environment:
       SERVICE_URL: "http://nginx:80/"
 
-
 volumes:
   db-data:
-
