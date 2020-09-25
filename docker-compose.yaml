@@ -33,14 +33,14 @@ services:
       - 8080:80
     volumes:
       - ./logs:/var/log/nginx
+    depends_on:
+      - short-url
 
   short-url:
-    # cap_add:
-    #   - SYS_PTRACE
+    cap_add:
+      - SYS_PTRACE
     build:
       context: ./elx
-      args:
-        DATABASE_URL: ecto://client:password@mysql/short_url_db
     volumes:
       - ./elx:/home/shorturl/src
     ports:
@@ -49,8 +49,6 @@ services:
       DATABASE_URL: ecto://client:password@mysql/short_url_db
       SECRET_KEY_BASE: 7cCltY66vz9EPBaT77n8RdwJYbSKZcwaDSu3uUpSOteOuftjrUAlOOsAC0uxIubn
       PORT: 4000
-      # MIX_ENV: prod mix compile
-
     cpus: 1.0
     mem_limit: 1G
     mem_reservation: 215m

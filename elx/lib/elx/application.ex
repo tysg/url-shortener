@@ -16,7 +16,7 @@ defmodule Elx.Application do
       # Starts a worker by calling: Elx.Worker.start_link(arg)
       # {Elx.Worker, arg},
       # Elx.Counter,
-      # Elx.Bucket,
+      Elx.Bucket,
       {Redix, host: redis_host, name: :redix}
     ]
 

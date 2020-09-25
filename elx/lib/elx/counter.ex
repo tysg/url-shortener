@@ -3,10 +3,10 @@ defmodule Elx.Counter do
   alias Elx.Util
 
   @counter_key "shortkey:gen:autoinc"
-  @initial_value 1_599_647_941
 
   def init do
-    Redix.command!(:redix, ["SETNX", @counter_key, @initial_value])
+    initial_value = :os.system_time(:seconds)
+    Redix.command!(:redix, ["SETNX", @counter_key, initial_value])
   end
 
   def value do
