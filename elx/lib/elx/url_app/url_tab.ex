@@ -3,12 +3,12 @@ defmodule Elx.UrlApp.UrlTab do
   import Ecto.Changeset
 
   schema "urls_tab" do
-    field :ctime, :integer
-    field :hashed_url, :binary
-    field :short_key, :string
-    field :url, :string
+    field(:ctime, :integer)
+    field(:hashed_url, :binary)
+    field(:short_key, :string)
+    field(:url, :string)
 
-    timestamps()
+    # timestamps()
   end
 
   @doc false

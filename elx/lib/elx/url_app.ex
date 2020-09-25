@@ -35,7 +35,16 @@ defmodule Elx.UrlApp do
       ** (Ecto.NoResultsError)
 
   """
-  def get_url_tab!(id), do: Repo.get!(UrlTab, id)
+
+  # def get_url_tab!(id) do
+  #   query = from (u in UrlTab, where: u.short_key == )
+  #   Repo.get!(UrlTab, id)
+  # end
+
+  def get_last_by_short_key(short_key) do
+    query = first(from(u in UrlTab, where: u.short_key == ^short_key, order_by: [desc: u.ctime]))
+    Repo.one(query)
+  end
 
   @doc """
   Creates a url_tab.

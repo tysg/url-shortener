@@ -3,13 +3,12 @@ defmodule Elx.Repo.Migrations.CreateUrlsTab do
 
   def change do
     create table(:urls_tab) do
-      add :url, :string
-      add :short_key, :string
-      add :hashed_url, :binary
-      add :ctime, :integer
+      add(:url, :string)
+      add(:short_key, :string)
+      add(:hashed_url, :binary)
+      add(:ctime, :integer)
 
-      timestamps()
+      # timestamps()
     end
-
   end
 end
