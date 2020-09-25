@@ -2,9 +2,9 @@ use Mix.Config
 
 # Configure your database
 config :elx, Elx.Repo,
-  username: "root",
-  password: "",
-  database: "elx_dev",
+  username: "client",
+  password: "password",
+  database: "short_url_db",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
