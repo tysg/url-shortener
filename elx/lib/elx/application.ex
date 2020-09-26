@@ -14,8 +14,6 @@ defmodule Elx.Application do
       # Start the endpoint when the application starts
       ElxWeb.Endpoint,
       # Starts a worker by calling: Elx.Worker.start_link(arg)
-      # {Elx.Worker, arg},
-      # Elx.Counter,
       Elx.Bucket,
       {Redix, host: redis_host, name: :redix}
     ]

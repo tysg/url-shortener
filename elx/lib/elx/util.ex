@@ -19,7 +19,6 @@ defmodule Elx.Util do
   end
 
   def hash_url(url) do
-    # |> Base.encode16()
     :crypto.hash(:sha, url)
   end
 end

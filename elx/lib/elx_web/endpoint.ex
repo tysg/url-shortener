@@ -1,20 +1,6 @@
 defmodule ElxWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :elx
 
-  socket "/socket", ElxWeb.UserSocket,
-    websocket: true,
-    longpoll: false
-
-  # Serve at "/" the static files from "priv/static" directory.
-  #
-  # You should set gzip to true if you are running phx.digest
-  # when deploying your static files in production.
-  plug Plug.Static,
-    at: "/",
-    from: :elx,
-    gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
-
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
@@ -31,14 +17,6 @@ defmodule ElxWeb.Endpoint do
 
   plug Plug.MethodOverride
   plug Plug.Head
-
-  # The session will be stored in the cookie and signed,
-  # this means its contents can be read but not tampered with.
-  # Set :encryption_salt if you would also like to encrypt it.
-  plug Plug.Session,
-    store: :cookie,
-    key: "_elx_key",
-    signing_salt: "KyZDsXuA"
 
   plug ElxWeb.Router
 end
