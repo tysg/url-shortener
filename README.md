@@ -1,5 +1,15 @@
 # Short URL
 
+Application logic largely ported from the given Python Flask code. Runs on Elixir Phoenix framework.
+
+## Performance
+
+The Phoenix application performs twice as well as the given Flask server, measured
+by QPS in a stress-testing environment. See `benchmark` and `benchmark-phoenix` for
+the performance report before and after porting to Phoenix.
+
+
+
 ## Application Source
 All application codes should be inside `src/` folder.
 
