@@ -41,8 +41,8 @@ services:
       - SYS_PTRACE
     build:
       context: ./elx
-    volumes:
-      - ./elx:/home/shorturl/src
+    # volumes:
+    #   - ./elx:/home/shorturl/src
     ports:
       - 4000:4000
     environment:

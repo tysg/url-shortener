@@ -9,6 +9,8 @@ COPY mix.lock .
 RUN mix deps.get --only prod
 RUN MIX_ENV=prod mix compile
 
+COPY . .
+
 CMD MIX_ENV=prod mix phx.server
 
 
