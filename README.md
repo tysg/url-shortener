@@ -1,14 +1,22 @@
 # Short URL
 
-Application logic largely ported from the given Python Flask code. Runs on Elixir Phoenix framework.
+Based on a Shopee Engineering workshop "Building a Real-World Scalable Service".
+
+See the provided Python Flask server code in the `original` branch.
+
+## Improvement
+
+The backend server is re-written in Elixir using the Phoenix framework, with 
+Ecto communicating with MySQL server. Instead of using Redis to cache the 
+get request, an Agent process stores the cache using a Map. 
+
 
 ## Performance
 
-The Phoenix application performs twice as well as the given Flask server, measured
-by QPS in a stress-testing environment. See `benchmark` and `benchmark-phoenix` for
-the performance report before and after porting to Phoenix.
-
-
+Thanks to the concurrency model in Elixir, the improved version performs twice as well 
+as the given Flask server, measured by QPS in a stress-testing environment. 
+See `benchmark` and `benchmark-phoenix` for the performance report before and after 
+porting to Phoenix.
 
 ## Application Source
 All application codes should be inside `src/` folder.
